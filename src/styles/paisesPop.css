@@ -1,0 +1,96 @@
+.message{
+    font-size: 24px;
+    margin-top: 5vh;
+    margin-bottom: 10px;
+    
+}
+
+.main-content{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5vh;
+}
+
+.config-menu{
+    background-color: #FF5043;
+    min-width: 30vw;
+    border-top-right-radius: 10px;   
+    border-bottom-right-radius: 10px;
+    padding: 20px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5vh 0;
+}
+
+.config-menu .countries-container{
+    margin: 10px 0;
+}
+
+.countries-container{
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+}
+
+.config-menu h2{
+    color: #012130;
+}
+
+.country{
+    position: relative;
+    margin: 10px 0;
+    display: flex;
+}
+
+.country *{
+    margin: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.country img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.country p{
+    font-size: 22px;
+    color: #FFF;
+}
+
+.country:hover{
+    
+    background-color: #212f363a;
+}
+
+
+.config-menu .random-button{
+    background-color: #FFF;
+    border: none;
+    color: #012130;
+    border-radius: 10px;
+    font-size: 28px;
+    font-weight: 500;
+    padding: 8px 6%;
+    transition: background 0.2s;
+}
+.config-menu .random-button:hover{
+    cursor: pointer;
+    /* opacity: 85%; */
+    background: #b1160b;
+    color: #DDD;
+}
+
+
+.chart-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    margin: 0 5%;
+}

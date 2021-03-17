@@ -3,6 +3,19 @@ body{
   text-align: center;
 }
 
+.Page-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.Page-container main{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  
+}
 
 p{
   margin: 0;  

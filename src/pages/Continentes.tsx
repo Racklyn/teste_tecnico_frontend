@@ -15,14 +15,18 @@ function Continentes() {
         europa:true,
         oceania:true,
     })
+    const [selectAllChecked, setSelectAllChecked] = useState(true)
+
+
 
     useEffect(()=>{
-        console.log(selected)
-        //if(Object.values(selected).every(e=>e)){}
+        //verificando se todos estão selecionados
+        setSelectAllChecked(Object.values(selected).every(e=>e))
     },[selected])
 
 
     function selectAll(value:boolean){
+        setSelectAllChecked(value)
         setSelected(
             {
                 africa:value,
@@ -35,7 +39,7 @@ function Continentes() {
     }
 
     return (
-    <div className="Continentes-container">
+    <div className="Page-container">
         <Header selected={1}/>
         <main>
             <p className="message">O gráfico circular a seguir apresenta a população dos continentes...</p>
@@ -44,8 +48,7 @@ function Continentes() {
                     <h2>Mostrar:</h2>
                     <div className="options">
                         <div className="select-continent">
-                            <input type="checkbox" defaultChecked={true} onChange={e=>selectAll(e.target.checked)}/>
-                            
+                            <input type="checkbox" checked={selectAllChecked} onChange={e=>selectAll(e.target.checked)}/>
                             <label>Todos</label>
                             {/* <span className="checkmark"></span> */}
                         </div>
