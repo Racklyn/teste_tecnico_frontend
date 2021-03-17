@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/continentes.css'
-import {Doughnut, defaults} from 'react-chartjs-2'
+import {Bar, defaults} from 'react-chartjs-2'
 import Header from '../components/Header';
 
-defaults.global.legend.display = true
+defaults.global.legend.display = false
 defaults.global.legend.position = 'bottom'
 
 function Continentes() {
@@ -91,20 +91,22 @@ function Continentes() {
                     
                 </div>
                 <div className="chart-container">
-                    <Doughnut
+                    <Bar
                         data={{
                         labels:["África","Américas","Ásia","Europa","Oceania"],
                         datasets:[
                             {
-                            
                             data: [6,2,5,4,3],
                             
                             backgroundColor: [
-                              '#a70000',
-                              '#ff0000',
-                              '#ff5252',
-                              '#ff7b7b',
-                              '#ffbaba',
+                                // '#830000',
+                                '#b00000',
+                                '#ff0000',
+                                // '#ff301c',
+                                '#FF5043',
+                                '#ff6067',
+                                '#ff9b8e',
+                                // '#ff9eae',
                             ],
 
                             }
@@ -115,7 +117,13 @@ function Continentes() {
                         options={{
                             maintainAspectRatio: false,
                             responsive: true,
-                            
+                            scales: {
+                                yAxes: [
+                                    { 
+                                        ticks: { beginAtZero: true } 
+                                    }
+                                ]
+                            }
                         }}
                     />
                 </div>
