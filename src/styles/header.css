@@ -1,0 +1,48 @@
+header .header-title{
+    background-color: #009DD9;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+  
+header h1{
+    color: #FFF;
+    margin: 0;
+    font-size: 40px;
+}
+header .logo{
+    position: absolute;
+    right: 30px;
+}
+  
+  
+header .header-menu{
+    background-color: #00C9F6;
+    height: 50px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    padding: 0 20px;
+}
+  
+header .header-menu a{
+    text-decoration: none;
+    color: #012130;
+    font-size: 24px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+  
+header .header-menu a:hover{
+    /* background-color: #274c5a3a; */
+    background: #FFF;
+    /* color: #FF5043; */
+}
+
+header .header-menu .selected-option{
+    background-color: #64a7b6a4;
+}
