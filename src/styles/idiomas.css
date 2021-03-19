@@ -1,0 +1,71 @@
+.message{
+    font-size: 24px;
+    margin: 8vh 10px 10px 10px;
+}
+
+.main-content{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5vh;
+}
+
+.config-menu{
+    background-color: #FF5043;
+    min-width: 30vw;
+    border-top-right-radius: 10px;   
+    border-bottom-right-radius: 10px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5vh 0;
+}
+
+.config-menu .options{
+    margin: 10px 0;
+}
+
+.select-continent{
+    position: relative;
+    margin: 10px 0;
+    display: flex;
+}
+.select-continent:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+.select-continent input{
+    /* position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0; */
+    transform: scale(2);
+}
+.select-continent input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+.checkmark{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    opacity: .6;
+}
+.select-continent label{
+    font-size: 20px;
+    padding-left: 35px;
+}
+
+
+
+
+.chart-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5%;
+}

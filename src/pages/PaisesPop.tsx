@@ -1,12 +1,72 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/paisesPop.css'
-import {Bar, defaults} from 'react-chartjs-2'
+import {Bar} from 'react-chartjs-2'
 import Header from '../components/Header';
-
-defaults.global.legend.display = false
-defaults.global.legend.position = 'bottom'
+import api from '../services/api';
 
 function PaisesPop() {
+
+    interface countryInterface{
+        name:string;
+        population:number,
+        flag:string
+    }
+
+    const [chartData, setChartData] = useState({})
+    const [countries, setCountries] = useState<countryInterface[]>([])
+
+    useEffect(()=>{
+        randomCountries()
+    },[])
+
+    function randomCountries(){
+        let randomCountries: countryInterface[]= []
+        let min=0
+        let max=0
+        
+        api.get('all?fields=name;population;flag').then(resp=>{
+            let all = resp.data
+            for(var i=0;i<8;i++){
+                let random: countryInterface
+                do{
+                    random = all[Math.floor(Math.random()*all.length)]
+                    min = Math.min(...randomCountries.map(c=>c.population),random.population)
+                    max = Math.max(...randomCountries.map(c=>c.population),random.population)
+                }while(
+                    randomCountries.includes(random) ||
+                    max>20*min
+                    )
+
+                randomCountries.push(random)
+            }
+            updateData(randomCountries)
+            setCountries(randomCountries)
+        })
+    }
+
+    function updateData(data:countryInterface[]){
+        setChartData({
+            labels:data.map(c=>c.name.slice(0,13)),
+            datasets:[
+                {
+                label: "população dos países",
+                data: data.map(c=>c.population),
+                
+                backgroundColor: [
+                  '#830000',
+                  '#b00000',
+                  '#ff0000',
+                  '#ff301c',
+                  '#FF5043',
+                  '#ff6067',
+                  '#ff9b8e',
+                  '#ff9eae',
+                ],
+
+                }
+            ]
+        })
+    }
 
     return (
     <div className="Page-container">
@@ -20,72 +80,24 @@ function PaisesPop() {
                 <div className="config-menu">
                     <h2>Países:</h2>
                     <div className="countries-container">
-                        <div className="left-countries">
-                            <span className="country">
-                                <img src="https://restcountries.eu/data/bra.svg" alt="Bra"/>
-                                <p>Brasil</p>
-                            </span>
-                            <span className="country">
-                                <img src="https://restcountries.eu/data/arg.svg" alt="Arg"/>
-                                <p>Brasil</p>
-                            </span>
-                            <span className="country">
-                                <img src="https://restcountries.eu/data/col.svg" alt="Col"/>
-                                <p>Brasil</p>
-                            </span>
-                            <span className="country">
-                                <img src="https://restcountries.eu/data/usa.svg" alt="Usa"/>
-                                <p>Brasil</p>
-                            </span>
-                        </div>
-                        <div className="rigth-countries">
-                            <span className="country">
-                                <img src="https://restcountries.eu/data/can.svg" alt="Can"/>
-                                <p>Brasil</p>
-                            </span>
-                            <span className="country">
-                                <img src="https://restcountries.eu/data/mex.svg" alt="Arg"/>
-                                <p>Brasil</p>
-                            </span>
-                            <span className="country">
-                                <img src="https://restcountries.eu/data/dza.svg" alt="Col"/>
-                                <p>Brasil</p>
-                            </span>
-                            <span className="country">
-                                <img src="https://restcountries.eu/data/deu.svg" alt="Col"/>
-                                <p>Brasil</p>
-                            </span>
-                        </div>
+                        {countries.map(country=>{
+                            return(
+                                <span key={`${country.name}-icon`} className="country">
+                                    <img src={country.flag} alt="flag"/>
+                                    <p>{country.name}</p>
+                                </span>
+                            )
+                        })}
                         
                         
 
                     </div>
-                    <button className="random-button">Aleatório</button>
+                    <button className="random-button" onClick={()=>randomCountries()}>Aleatório</button>
                     
                 </div>
                 <div className="chart-container">
                     <Bar
-                        data={{
-                        labels:["p1","p2","p3","p4","p5", "p6", "p7", "p8"],
-                        datasets:[
-                            {
-                            
-                            data: [6,2,5,4,3,5,8,4],
-                            
-                            backgroundColor: [
-                              '#830000',
-                              '#b00000',
-                              '#ff0000',
-                              '#ff301c',
-                              '#FF5043',
-                              '#ff6067',
-                              '#ff9b8e',
-                              '#ff9eae',
-                            ],
-
-                            }
-                        ]
-                        }}
+                        data={chartData}
                         height={400}
                         width={400}
                         options={{
@@ -97,6 +109,9 @@ function PaisesPop() {
                                         ticks: { beginAtZero: true } 
                                     }
                                 ]
+                            },
+                            legend: {
+                                display: false,
                             }
                         }}
                     />

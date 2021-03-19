@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/continentes.css'
-import {Bar} from 'react-chartjs-2'
+import '../styles/idiomas.css'
+import {defaults, Doughnut} from 'react-chartjs-2'
 import Header from '../components/Header';
 import api from '../services/api';
 
+defaults.global.legend.position = 'right'
+
 interface countryInterface{
-    population:number
+    population:number,
+    languages:{name:string}[]
 }
 interface selectedInterface{
     [key: string]: boolean 
 }
-interface popDataInterface{
+interface languagesInterface{
     [key: string]: number 
 }
 
 
-function Continentes() {
+function Idiomas() {
 
     const [chartData, setChartData] = useState({})
 
@@ -39,44 +42,55 @@ function Continentes() {
         chart()
     },[selected])
 
-
     function chart(){
-        let popData: popDataInterface ={}
+        let languages: languagesInterface ={}
 
-        //  Adicionando continentes selecionados
-        Object.keys(selected).forEach(key=>{
-            if(selected[key]) popData[key]=0
+        Object.keys(selected).forEach(cont=>{
+            if(selected[cont]){
+                api.get(`region/${cont}`).then(resp=>{
+                    resp.data.forEach((country:countryInterface)=>{
+                        country.languages.forEach(lang=>{
+                            if(languages.hasOwnProperty(lang.name)){
+                                languages[lang.name]+=1
+                            }else{
+                                languages[lang.name]=1
+                            }
+                        })
+                    })
+                    // console.log(Object.values(languages).sort((a,b)=>a-b))
+                    updateData(languages)
+            
+                })
+            }
         })
-        
-        if(Object.keys(popData).length===0){
-            updateData({})
-        }else{
-            //  Somas das populações em cada continente
-            Object.keys(popData).forEach(cont=>{
-            api.get(`region/${cont}/?fields=name;population`).then(resp=>{
-                let totalPop = resp.data.reduce((total:number, country:countryInterface)=>{
-                    return total+country.population
-                },0)
-                popData[cont] = totalPop
-                
-                updateData(popData)
-            })
-            })
-        }
     }
 
-
-    function updateData(data:popDataInterface){
+    function updateData(data:languagesInterface){
         setChartData({
-            labels:Object.keys(data),
+            labels:Object.keys(data).slice(0,10),
             datasets:[
                 {
-                data: Object.values(data),              
-                backgroundColor: ['#b00000','#ff0000','#FF5043','#ff6067','#ff9b8e'],
+                data: Object.values(data).slice(0,10),
+                
+                backgroundColor: [
+                    '#830000',
+                    '#b00000',
+                    '#ff0000',
+                    '#ff301c',
+                    '#FF5043',
+                    '#ff6067',
+                    '#ff9b8e',
+                    '#ff9eae',
+                    '#ffcebe',
+                    '#ff9dee',
+                ],
+
                 }
             ]
-        })
+            }
+        )
     }
+
 
     function selectAll(value:boolean){
         setSelectAllChecked(value)
@@ -93,12 +107,16 @@ function Continentes() {
 
     return (
     <div className="Page-container">
-        <Header selected={1}/>
+        <Header selected={3}/>
         <main>
-            <p className="message">O gráfico circular a seguir apresenta a população dos continentes...</p>
+            <p className="message">
+                O gráfico circular a seguir apresenta a quantidade de países que falam determinado
+                idioma nos continentes que estão sendo considerados.
+                <br/>O gráfico apresenta apenas os 8 idiomas mais falados nos continentes considerados.
+                </p>
             <div className="main-content">
                 <div className="config-menu">
-                    <h2>Mostrar:</h2>
+                    <h2>Considerando os continentes:</h2>
                     <div className="options">
                         <div className="select-continent">
                             <input type="checkbox" checked={selectAllChecked} onChange={e=>selectAll(e.target.checked)}/>
@@ -116,29 +134,25 @@ function Continentes() {
                                 </div>
                             )
                         })}
-                        
                     </div>
                     
                 </div>
                 <div className="chart-container">
-                    <Bar
-                        redraw
-                        // ref={(reference)=>setChartReference(reference)}
+                    <Doughnut
                         data={chartData}
                         height={400}
                         width={400}
                         options={{
                             maintainAspectRatio: false,
                             responsive: true,
-                            scales: {
-                                yAxes: [
-                                    { 
-                                        ticks: { beginAtZero: true } 
-                                    }
-                                ]
-                            },
                             legend: {
-                                display: false,
+                                display: true,
+                                labels: {
+                                    // fontColor: '#012130',
+                                    fontSize: 20,
+                                    boxWidth: 40,
+                                    padding: 10,
+                                }
                             }
                         }}
                     />
@@ -149,4 +163,4 @@ function Continentes() {
     );
 }
 
-export default Continentes;
+export default Idiomas;

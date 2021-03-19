@@ -14,7 +14,15 @@ header h1{
 }
 header .logo{
     position: absolute;
-    right: 30px;
+    right: 0px;
+    top: 0px;
+    background-color: #DDD;
+    border-bottom-left-radius: 50px;
+    padding: 10px 10px 10px 30px;
+}
+
+header .logo img{
+    height: 25px;
 }
   
   

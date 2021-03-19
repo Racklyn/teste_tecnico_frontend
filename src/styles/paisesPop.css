@@ -21,33 +21,36 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 5vh 0;
+    margin: 0;
+    position: relative;
 }
 
-.config-menu .countries-container{
-    margin: 10px 0;
-}
-
-.countries-container{
-    display: flex;
-    justify-content: space-around;
-    width: 90%;
-}
 
 .config-menu h2{
     color: #012130;
+}
+
+.countries-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4,1fr);
+    grid-column-gap: 2px;
+    margin: 10px 0;
 }
 
 .country{
     position: relative;
     margin: 10px 0;
     display: flex;
+    height: 40px;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .country *{
-    margin: 0 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -56,6 +59,7 @@
     height: 40px;
     object-fit: cover;
     border-radius: 50%;
+    margin-right: 10px;
 }
 .country p{
     font-size: 22px;
@@ -63,8 +67,18 @@
 }
 
 .country:hover{
-    
-    background-color: #212f363a;
+    overflow: visible;
+    cursor: pointer;
+}
+.country:hover > p{
+    position: absolute;
+    background-color: #012130e1;
+    border-radius: 10px;
+    padding: 5px;
+    z-index: 2;
+}
+.country:hover > img{
+    display: none;
 }
 
 
