@@ -11,10 +11,11 @@ interface countryInterface{
     languages:{name:string}[]
 }
 interface selectedInterface{
-    [key: string]: boolean 
+    [key: string]: boolean
 }
 interface languagesInterface{
-    [key: string]: number 
+    langName:string,
+    qtd:number
 }
 
 
@@ -31,10 +32,11 @@ function Idiomas() {
     })
     const [selectAllChecked, setSelectAllChecked] = useState(true)
 
+    const [othersLanguages, setOthersLanguages] = useState(0)
 
-    useEffect(()=>{
-        chart()
-    },[])
+    // useEffect(()=>{
+    //     chart()
+    // },[])
 
     useEffect(()=>{
         //verificando se todos estão selecionados
@@ -43,35 +45,55 @@ function Idiomas() {
     },[selected])
 
     function chart(){
-        let languages: languagesInterface ={}
+        let languages:languagesInterface[] =[]
 
         Object.keys(selected).forEach(cont=>{
             if(selected[cont]){
                 api.get(`region/${cont}`).then(resp=>{
                     resp.data.forEach((country:countryInterface)=>{
                         country.languages.forEach(lang=>{
-                            if(languages.hasOwnProperty(lang.name)){
-                                languages[lang.name]+=1
-                            }else{
-                                languages[lang.name]=1
+
+                            //  Pegando index de lang na array. Caso não exista retorna -1
+                            let pos = languages.map(l=>l.langName).indexOf(lang.name)
+
+                            if(pos>=0){ //Se lang já foi adicionado
+                                languages[pos].qtd++
+                            }else{ //Caso lang não exista ainda na array
+                                languages.push({
+                                    langName: lang.name,
+                                    qtd: 1
+                                })
                             }
                         })
                     })
-                    // console.log(Object.values(languages).sort((a,b)=>a-b))
-                    updateData(languages)
-            
+
+                    //  Copiando languages
+                    let languagesCopy = languages.slice(0)
+
+                    //  Ordenando (decrescente) languages por quantidade
+                    languagesCopy.sort((a,b) => (a.qtd > b.qtd) ? -1 : ((b.qtd > a.qtd) ? 1 : 0))
+
+                    //  filtrando os 10 idiomas que mais aparecem
+
+                    setOthersLanguages(languagesCopy.slice(10,languagesCopy.length-1).length)
+
+                    languagesCopy = languagesCopy.slice(0,10)
+
+
+                    updateData(languagesCopy)
+
                 })
             }
         })
     }
 
-    function updateData(data:languagesInterface){
+    function updateData(data:languagesInterface[]){
         setChartData({
-            labels:Object.keys(data).slice(0,10),
+            labels:data.map(l=>l.langName),
             datasets:[
                 {
-                data: Object.values(data).slice(0,10),
-                
+                data: data.map(l=>l.qtd),
+
                 backgroundColor: [
                     '#830000',
                     '#b00000',
@@ -112,7 +134,7 @@ function Idiomas() {
             <p className="message">
                 O gráfico circular a seguir apresenta a quantidade de países que falam determinado
                 idioma nos continentes que estão sendo considerados.
-                <br/>O gráfico apresenta apenas os 8 idiomas mais falados nos continentes considerados.
+                <br/>O gráfico apresenta apenas os 10 idiomas mais falados nos continentes em questão.
                 </p>
             <div className="main-content">
                 <div className="config-menu">
@@ -120,7 +142,7 @@ function Idiomas() {
                     <div className="options">
                         <div className="select-continent">
                             <input type="checkbox" checked={selectAllChecked} onChange={e=>selectAll(e.target.checked)}/>
-                            <label>Todos</label>
+                            <label>TODOS</label>
                             {/* <span className="checkmark"></span> */}
                         </div>
                         {Object.keys(selected).map(cont=>{
@@ -130,12 +152,12 @@ function Idiomas() {
                                         checked={selected[cont]}
                                         onChange={e=>setSelected({...selected,[cont]:e.target.checked})}
                                     />
-                                    <label>{cont}</label>
+                                    <label>{cont.toUpperCase()}</label>
                                 </div>
                             )
                         })}
                     </div>
-                    
+
                 </div>
                 <div className="chart-container">
                     <Doughnut
@@ -148,7 +170,6 @@ function Idiomas() {
                             legend: {
                                 display: true,
                                 labels: {
-                                    // fontColor: '#012130',
                                     fontSize: 20,
                                     boxWidth: 40,
                                     padding: 10,
@@ -156,6 +177,11 @@ function Idiomas() {
                             }
                         }}
                     />
+                    {othersLanguages>0
+                    &&(
+                        <p className="others-languages">+ {othersLanguages} idiomas</p>
+                    )
+                    }
                 </div>
             </div>
         </main>

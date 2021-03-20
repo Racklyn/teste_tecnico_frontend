@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/header.css';
 import {Link} from 'react-router-dom'
 import Logo from '../assets/imgs/logo.png'
+import {GoGlobe} from 'react-icons/go'
 
 
 function Header({selected=1}) {
@@ -9,7 +10,7 @@ function Header({selected=1}) {
     return (
         <header>
             <div className="header-title">
-                <h1>Countries</h1>
+                <h1> <GoGlobe size={36}/> Countries</h1>
                 <div className="logo">
                     <img src={Logo} alt="Mediar"/>
                 </div>

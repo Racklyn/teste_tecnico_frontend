@@ -1,6 +1,7 @@
 body{
   margin: 0;
   text-align: center;
+  font-family: 'Varela Round', sans-serif;
 }
 
 .Page-container{
@@ -18,9 +19,20 @@ body{
 }
 
 p{
-  margin: 0;  
+  margin: 0;
 }
 
+.message{
+  font-size: 20px;
+  color: #222;
+  margin: 5vh 10px 10px 10px;
+}
 h2{
   margin: 0;
+}
+
+.main-content{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5vh;
 }

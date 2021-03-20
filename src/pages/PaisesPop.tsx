@@ -3,6 +3,8 @@ import '../styles/paisesPop.css'
 import {Bar} from 'react-chartjs-2'
 import Header from '../components/Header';
 import api from '../services/api';
+import {GiRollingDices} from 'react-icons/gi'
+import {CircularProgress} from '@material-ui/core'
 
 function PaisesPop() {
 
@@ -16,28 +18,36 @@ function PaisesPop() {
     const [countries, setCountries] = useState<countryInterface[]>([])
 
     useEffect(()=>{
-        randomCountries()
+        drawCountries()
     },[])
 
-    function randomCountries(){
+    function drawCountries(){
         let randomCountries: countryInterface[]= []
         let min=0
         let max=0
-        
+        setCountries([])
         api.get('all?fields=name;population;flag').then(resp=>{
             let all = resp.data
             for(var i=0;i<8;i++){
                 let random: countryInterface
+                let reps = 0
                 do{
+                    reps++
                     random = all[Math.floor(Math.random()*all.length)]
                     min = Math.min(...randomCountries.map(c=>c.population),random.population)
                     max = Math.max(...randomCountries.map(c=>c.population),random.population)
                 }while(
-                    randomCountries.includes(random) ||
-                    max>20*min
-                    )
-
-                randomCountries.push(random)
+                    (randomCountries.includes(random) ||
+                    max > 20*min) &&
+                    reps<all.length
+                )
+                //evitando um loop infinito, recomeçando o sorteio aleatório
+                if(reps>=all.length){
+                    drawCountries()
+                    break;
+                }else{ //caso tudo tenha corrido bem
+                    randomCountries.push(random)
+                }
             }
             updateData(randomCountries)
             setCountries(randomCountries)
@@ -49,7 +59,7 @@ function PaisesPop() {
             labels:data.map(c=>c.name.slice(0,13)),
             datasets:[
                 {
-                label: "população dos países",
+                label: "população do país",
                 data: data.map(c=>c.population),
                 
                 backgroundColor: [
@@ -79,20 +89,27 @@ function PaisesPop() {
             <div className="main-content">
                 <div className="config-menu">
                     <h2>Países:</h2>
-                    <div className="countries-container">
-                        {countries.map(country=>{
-                            return(
-                                <span key={`${country.name}-icon`} className="country">
-                                    <img src={country.flag} alt="flag"/>
-                                    <p>{country.name}</p>
-                                </span>
-                            )
-                        })}
-                        
-                        
-
-                    </div>
-                    <button className="random-button" onClick={()=>randomCountries()}>Aleatório</button>
+                    {countries.length>0?
+                        <div className="countries-container">
+                            {countries.map(country=>{
+                                return(
+                                    <span key={`${country.name}-icon`} className="country">
+                                        <img src={country.flag} alt="flag"/>
+                                        <p>{country.name}</p>
+                                    </span>
+                                )
+                            })}
+                        </div>
+                        :
+                        (<div className="progress-container">
+                            <CircularProgress className="progress" color='inherit'/>
+                        </div>
+                        )
+                    }
+                    
+                    <button className="random-button" onClick={()=>drawCountries()}>
+                        <GiRollingDices size={28} /> Sortear
+                    </button>
                     
                 </div>
                 <div className="chart-container">

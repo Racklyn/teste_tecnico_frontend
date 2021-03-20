@@ -102,7 +102,7 @@ function Continentes() {
                     <div className="options">
                         <div className="select-continent">
                             <input type="checkbox" checked={selectAllChecked} onChange={e=>selectAll(e.target.checked)}/>
-                            <label>Todos</label>
+                            <label>TODOS</label>
                             {/* <span className="checkmark"></span> */}
                         </div>
                         {Object.keys(selected).map(cont=>{
@@ -112,7 +112,7 @@ function Continentes() {
                                         checked={selected[cont]}
                                         onChange={e=>setSelected({...selected,[cont]:e.target.checked})}
                                     />
-                                    <label>{cont}</label>
+                                    <label>{cont.toUpperCase()}</label>
                                 </div>
                             )
                         })}
