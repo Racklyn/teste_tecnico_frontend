@@ -82,10 +82,12 @@ function PaisesPop() {
     <div className="Page-container">
         <Header selected={2}/>
         <main>
-            <p className="message">
-                O gráfico de barras a seguir apresenta a comparaão entre as populações de alguns países
-                escolhidos de forma aleatória. Clique no botão "Aleatório" para analisar outros países...
-            </p>
+            <div className="message">
+                <p>
+                    O gráfico de barras a seguir apresenta a comparação entre as populações de alguns países
+                    escolhidos de forma aleatória.
+                </p>
+            </div>
             <div className="main-content">
                 <div className="config-menu">
                     <h2>Países:</h2>

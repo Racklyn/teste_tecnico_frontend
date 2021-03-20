@@ -3,6 +3,7 @@ import '../styles/idiomas.css'
 import {defaults, Doughnut} from 'react-chartjs-2'
 import Header from '../components/Header';
 import api from '../services/api';
+import {Checkbox} from '@material-ui/core'
 
 defaults.global.legend.position = 'right'
 
@@ -131,24 +132,33 @@ function Idiomas() {
     <div className="Page-container">
         <Header selected={3}/>
         <main>
-            <p className="message">
-                O gráfico circular a seguir apresenta a quantidade de países que falam determinado
-                idioma nos continentes que estão sendo considerados.
-                <br/>O gráfico apresenta apenas os 10 idiomas mais falados nos continentes em questão.
+            <div className="message">
+                <p>
+                    O gráfico circular a seguir apresenta a quantidade de países que falam determinado
+                    idioma nos continentes que estão sendo considerados.
                 </p>
+                <p>O gráfico apresenta apenas os 10 idiomas mais falados nos continentes em questão.</p>
+            </div>
             <div className="main-content">
                 <div className="config-menu">
                     <h2>Considerando os continentes:</h2>
                     <div className="options">
                         <div className="select-continent">
-                            <input type="checkbox" checked={selectAllChecked} onChange={e=>selectAll(e.target.checked)}/>
-                            <label>TODOS</label>
+                            <Checkbox
+                                color='default'
+                                className="checkbox"
+                                checked={selectAllChecked}
+                                onChange={e=>selectAll(e.target.checked)}
+                            />
+                            <label>ALL</label>
                             {/* <span className="checkmark"></span> */}
                         </div>
                         {Object.keys(selected).map(cont=>{
                             return(
                                 <div key={`${cont}-select`} className="select-continent">
-                                    <input type="checkbox"
+                                    <Checkbox
+                                        color='default'
+                                        className="checkbox"
                                         checked={selected[cont]}
                                         onChange={e=>setSelected({...selected,[cont]:e.target.checked})}
                                     />
