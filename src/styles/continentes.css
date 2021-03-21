@@ -8,23 +8,6 @@
     opacity: 90%;
 }
 
-.config-menu{
-    background-color: #FF5043;
-    min-width: 30vw;
-    border-top-right-radius: 10px;   
-    border-bottom-right-radius: 10px;
-    padding: 20px 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 5vh 0;
-}
-
-.config-menu .options{
-    margin: 10px 0;
-}
-
 .select-continent{
     position: relative;
     margin: 10px 0;
@@ -40,15 +23,4 @@
 .select-continent label{
     font-size: 18px;
     padding-left: 35px;
-}
-
-
-
-
-.chart-container{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 5%;
 }

@@ -55,8 +55,9 @@ function Continentes() {
             if(selected[key]) popData[key]=0
         })
         
+        //  Caso nenhum continente tenha sido selecionado
         if(Object.keys(popData).length===0){
-            updateData({})
+            setChartData({})
         }else{
             //  Somas das populações em cada continente
             Object.keys(popData).forEach(cont=>{
@@ -72,24 +73,21 @@ function Continentes() {
                 
                 popData[cont] = total
                  
-                updateData(popData)
+                //  Atualizando dados do gráfico:
+                setChartData({
+                    labels:Object.keys(popData),
+                    datasets:[
+                        {
+                        data: Object.values(popData),              
+                        backgroundColor: ['#b00000','#ff0000','#FF5043','#ff6067','#ff9b8e'],
+                        }
+                    ]
+                })
             })
             })
         }
     }
 
-
-    function updateData(data:popDataInterface){
-        setChartData({
-            labels:Object.keys(data),
-            datasets:[
-                {
-                data: Object.values(data),              
-                backgroundColor: ['#b00000','#ff0000','#FF5043','#ff6067','#ff9b8e'],
-                }
-            ]
-        })
-    }
 
     function selectAll(value:boolean){
         setSelectAllChecked(value)
@@ -155,7 +153,6 @@ function Continentes() {
                 <div className="chart-container">
                     <Bar
                         redraw
-                        // ref={(reference)=>setChartReference(reference)}
                         data={chartData}
                         height={400}
                         width={400}

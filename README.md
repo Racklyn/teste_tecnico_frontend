@@ -7,6 +7,7 @@ Este projeto foi criado para o teste técnico frontend da Mediar Solutions. A ap
 ## Tecnologias utilizadas 💻
 - React.js
 - TypeScript
+- Axios
 - Chart.js
 
 ## Executando ▶

@@ -6,13 +6,13 @@ import api from '../services/api';
 import {GiRollingDices} from 'react-icons/gi'
 import {CircularProgress} from '@material-ui/core'
 
-function PaisesPop() {
+interface countryInterface{
+    name:string;
+    population:number,
+    flag:string
+}
 
-    interface countryInterface{
-        name:string;
-        population:number,
-        flag:string
-    }
+function PaisesPop() {
 
     const [chartData, setChartData] = useState({})
     const [countries, setCountries] = useState<countryInterface[]>([])
@@ -21,6 +21,7 @@ function PaisesPop() {
         drawCountries()
     },[])
 
+    // Sortear países e mostrá-los no gráfico
     function drawCountries(){
         let randomCountries: countryInterface[]= []
         let min=0
@@ -34,11 +35,14 @@ function PaisesPop() {
                 do{
                     reps++
                     random = all[Math.floor(Math.random()*all.length)]
-                    min = Math.min(...randomCountries.map(c=>c.population),random.population)
-                    max = Math.max(...randomCountries.map(c=>c.population),random.population)
+                    //  Pegando menor e maior população da lista
+                    let preview = [...randomCountries.map(c=>c.population),random.population]
+                    min = Math.min(...preview)
+                    max = Math.max(...preview)
                 }while(
                     (randomCountries.includes(random) ||
-                    max > 20*min) &&
+                    //  não pegar países com populações muito distintas
+                    max > 25*min) &&
                     reps<all.length
                 )
                 //evitando um loop infinito, recomeçando o sorteio aleatório
@@ -49,32 +53,20 @@ function PaisesPop() {
                     randomCountries.push(random)
                 }
             }
-            updateData(randomCountries)
             setCountries(randomCountries)
-        })
-    }
 
-    function updateData(data:countryInterface[]){
-        setChartData({
-            labels:data.map(c=>c.name.slice(0,13)),
-            datasets:[
-                {
-                label: "população do país",
-                data: data.map(c=>c.population),
-                
-                backgroundColor: [
-                  '#830000',
-                  '#b00000',
-                  '#ff0000',
-                  '#ff301c',
-                  '#FF5043',
-                  '#ff6067',
-                  '#ff9b8e',
-                  '#ff9eae',
-                ],
-
-                }
-            ]
+            //  Atualizando dados do gráfico:
+            setChartData({
+                labels:randomCountries.map(c=>c.name.slice(0,13)),
+                datasets:[
+                    {
+                    label: "população do país",
+                    data: randomCountries.map(c=>c.population),
+                    backgroundColor: ['#830000','#b00000','#ff0000','#ff301c',
+                                    '#FF5043','#ff6067','#ff9b8e','#ff9eae'],
+                    }
+                ]
+            })
         })
     }
 

@@ -33,11 +33,8 @@ function Idiomas() {
     })
     const [selectAllChecked, setSelectAllChecked] = useState(true)
 
-    const [othersLanguages, setOthersLanguages] = useState(0)
 
-    // useEffect(()=>{
-    //     chart()
-    // },[])
+    const [othersLanguages, setOthersLanguages] = useState(0)
 
     useEffect(()=>{
         //verificando se todos estão selecionados
@@ -47,6 +44,9 @@ function Idiomas() {
 
     function chart(){
         let languages:languagesInterface[] =[]
+
+        setChartData({})
+        setOthersLanguages(0)
 
         Object.keys(selected).forEach(cont=>{
             if(selected[cont]){
@@ -80,38 +80,22 @@ function Idiomas() {
 
                     languagesCopy = languagesCopy.slice(0,10)
 
-
-                    updateData(languagesCopy)
+                    //  Atualizando dados do gráfico:
+                    setChartData({
+                        labels:languagesCopy.map(l=>l.langName),
+                        datasets:[
+                            {
+                            data: languagesCopy.map(l=>l.qtd),
+                            backgroundColor: ['#830000','#b00000','#ff0000','#ff301c','#FF5043',
+                                            '#ff6067','#ff9b8e','#ff9eae','#ffcebe','#ff9dee'],
+                            }
+                        ]
+                        }
+                    )
 
                 })
             }
         })
-    }
-
-    function updateData(data:languagesInterface[]){
-        setChartData({
-            labels:data.map(l=>l.langName),
-            datasets:[
-                {
-                data: data.map(l=>l.qtd),
-
-                backgroundColor: [
-                    '#830000',
-                    '#b00000',
-                    '#ff0000',
-                    '#ff301c',
-                    '#FF5043',
-                    '#ff6067',
-                    '#ff9b8e',
-                    '#ff9eae',
-                    '#ffcebe',
-                    '#ff9dee',
-                ],
-
-                }
-            ]
-            }
-        )
     }
 
 
@@ -151,7 +135,6 @@ function Idiomas() {
                                 onChange={e=>selectAll(e.target.checked)}
                             />
                             <label>ALL</label>
-                            {/* <span className="checkmark"></span> */}
                         </div>
                         {Object.keys(selected).map(cont=>{
                             return(

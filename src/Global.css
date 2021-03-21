@@ -31,12 +31,41 @@ p{
   justify-content: center;
   align-items: center;
 }
-h2{
-  margin: 0;
-}
 
 .main-content{
   display: flex;
   justify-content: space-between;
   padding-bottom: 3%;
+}
+
+.config-menu{
+  background-color: #FF5043;
+  min-width: 30vw;
+  border-top-right-radius: 10px;   
+  border-bottom-right-radius: 10px;
+  padding: 20px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  position: relative;
+}
+.config-menu h2{
+  color: #012130;
+  margin: 0;
+}
+
+.config-menu .options{
+  margin: 10px 0;
+}
+
+
+.chart-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5%;
+  position: relative;
 }
