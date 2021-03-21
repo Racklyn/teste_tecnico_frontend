@@ -1,6 +1,5 @@
 # Countries - Mediar 🌎
-
-![](https://mediarsolutions.com/wp-content/uploads/2021/02/teste_tecnico_front.png)
+![oie_Up4ZQuGFZ5Td](https://user-images.githubusercontent.com/52416026/111911783-a9bc5280-8a45-11eb-9d55-5e8e9a39f611.png)
 
 Este projeto foi criado para o teste técnico frontend da Mediar Solutions. A aplicação consome dados da API [RestCountries](http://restcountries.eu/), mostrando em gráficos a população dos continentes, dos países e os idiomas mais falados pelo mundo.
 
