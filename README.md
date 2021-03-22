@@ -12,7 +12,7 @@ Este projeto foi criado para o teste técnico frontend da Mediar Solutions. A ap
 ## Executando ▶
 Para executar o projeto, clone este repositório em seu computador, executando na linha de comando:
 ```shell
-# Clonado repositório
+# Clonando repositório
 $ git clone https://github.com/Racklyn/teste_tecnico_frontend
 
 # Entrando no diretório do projeto
