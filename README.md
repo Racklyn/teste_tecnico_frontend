@@ -10,7 +10,12 @@ Este projeto foi criado para o teste técnico frontend da Mediar Solutions. A ap
 - Chart.js
 
 ## Executando ▶
-Para executar o projeto, clone este repositório em seu computador, executando na linha de comando:
+### Deploy:  🌐
+ Você pode ver o deploy da aplicação **[clicando aqui!](https://racklyn.github.io/teste_tecnico_frontend/)**.
+
+### Rodando projeto localmente: 🛠
+
+Para executar o projeto em seu computador, clone este repositório, executando na linha de comando:
 ```shell
 # Clonando repositório
 $ git clone https://github.com/Racklyn/teste_tecnico_frontend
@@ -27,7 +32,6 @@ Inicie o projeto:
 $ yarn start
 ```
 O projeto será executado em [localhost:3000](http://localhost:3000/).
-
 
 ## Sobre 📋
 
