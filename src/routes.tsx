@@ -6,7 +6,7 @@ import PaisesPop from './pages/PaisesPop'
 
 function Routes(){
     return(
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Switch>
                 <Route path="/" exact component={Continentes}/>
                 <Route path="/paisesPop" component={PaisesPop}/>
