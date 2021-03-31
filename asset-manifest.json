@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/teste_tecnico_frontend/static/css/main.c8cbb910.chunk.css",
+    "main.js": "/teste_tecnico_frontend/static/js/main.9274c22b.chunk.js",
+    "main.js.map": "/teste_tecnico_frontend/static/js/main.9274c22b.chunk.js.map",
+    "runtime-main.js": "/teste_tecnico_frontend/static/js/runtime-main.aca75c67.js",
+    "runtime-main.js.map": "/teste_tecnico_frontend/static/js/runtime-main.aca75c67.js.map",
+    "static/js/2.5e4748ff.chunk.js": "/teste_tecnico_frontend/static/js/2.5e4748ff.chunk.js",
+    "static/js/2.5e4748ff.chunk.js.map": "/teste_tecnico_frontend/static/js/2.5e4748ff.chunk.js.map",
+    "index.html": "/teste_tecnico_frontend/index.html",
+    "static/css/main.c8cbb910.chunk.css.map": "/teste_tecnico_frontend/static/css/main.c8cbb910.chunk.css.map",
+    "static/js/2.5e4748ff.chunk.js.LICENSE.txt": "/teste_tecnico_frontend/static/js/2.5e4748ff.chunk.js.LICENSE.txt",
+    "static/media/logo.eede5658.png": "/teste_tecnico_frontend/static/media/logo.eede5658.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.aca75c67.js",
+    "static/js/2.5e4748ff.chunk.js",
+    "static/css/main.c8cbb910.chunk.css",
+    "static/js/main.9274c22b.chunk.js"
+  ]
+}
